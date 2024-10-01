@@ -1,4 +1,5 @@
 import { useState } from "react";
+import AnswersList from "./AnswersList";
 
 function Survey() {
   const [open, setOpen] = useState(false); //Ignore this state
@@ -17,11 +18,24 @@ function Survey() {
 
   const [submissions, setSubmissions] = useState([])
 
+  const initialFormData = {
+    bestFeatures: [],
+    worstFeatures: [],
+    consistency: "",
+    color: "",
+    logo: "",
+    spendTime: [],
+    review: "",
+    name: "",
+    email: "",
+  };
+
   const handleSubmit = (event) => {
-    console.log("Submitted")
     event.preventDefault()
     setSubmissions([...submissions, formData])
-    
+    setFormData(initialFormData)
+    let form = document.querySelector("form")
+    form.reset()
   };
 
   const handleChange = (event) => {    
@@ -52,7 +66,7 @@ function Survey() {
     <main className="survey">
       <section className={`survey__list ${open ? "open" : ""}`}>
         <h2>Answers list</h2>
-        {/* answers should go here */}
+        <AnswersList answersList={submissions} />
       </section>
       <section className="survey__form">
         <form className="form" onSubmit={handleSubmit}>
